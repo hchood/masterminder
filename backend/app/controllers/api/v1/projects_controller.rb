@@ -4,4 +4,10 @@ class Api::V1::ProjectsController < ApplicationController
 
     render json: @projects
   end
+
+  def show
+    @project = Project.find(params[:id])
+
+    render json: @project
+  end
 end
