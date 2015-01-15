@@ -39,7 +39,7 @@ test('visiting /projects', function() {
   visit('/projects');
 
   andThen(function() {
-    equal(currentPath(), 'projects');
+    equal(currentPath(), 'projects.index');
 
     equal(find('h3:contains("All World Domination Schemes")').length, 1);
     equal(find('a:contains("Lock up world oil supply")').length, 1);
