@@ -2,7 +2,7 @@
 
 ## Overview
 
-This app is a demo for a tutorial on building an app using ember-cli and rails-api being written by [Eric Kelly](https://github.com/heroiceric) and myself. It's an app to help [evil wizards](https://github.com/faizaanshamsi plan their world domination schemes.
+This app is a demo for a tutorial on building an app using ember-cli and rails-api being written by [Eric Kelly](https://github.com/heroiceric) and myself. It's an app to help [evil wizards](https://github.com/faizaanshamsi) plan their world domination schemes.
 
 ## Setup
 
