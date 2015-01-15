@@ -6,7 +6,7 @@ gem 'spring', :group => :development
 gem 'pg'
 
 group :test do
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
 end
 
 group :development, :test do
