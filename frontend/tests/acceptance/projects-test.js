@@ -25,6 +25,16 @@ module('Acceptance: Projects', {
   }
 });
 
+test('Should allow navigation to the projects page from the landing page', function() {
+  visit('/').then(function() {
+    click('a:contains("Projects")');
+  });
+
+  andThen(function() {
+    equal(find('h3').text(), 'All World Domination Schemes');
+  });
+});
+
 test('visiting /projects', function() {
   visit('/projects');
 
