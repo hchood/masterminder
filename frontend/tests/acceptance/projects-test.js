@@ -31,6 +31,7 @@ test('visiting /projects', function() {
   andThen(function() {
     equal(currentPath(), 'projects');
 
+    equal(find('h3:contains("All World Domination Schemes")').length, 1);
     equal(find('a:contains("Lock up world oil supply")').length, 1);
     equal(find('a:contains("Tank the U.S. dollar")').length, 1);
     equal(find('a:contains("Smite the world with plague of man-eating ladybugs")').length, 1);
