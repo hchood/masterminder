@@ -15,10 +15,10 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
       get :index
 
       serialized_projects = ActiveModel::ArraySerializer.new(ordered_projects,
-        root: projects)
+        root: :projects)
 
-      expect(request.status).to eq 200
-      expect(json).to be_json_eq(serialized_questions)
+      expect(response.status).to eq 200
+      expect(json).to be_json_eq(serialized_projects)
     end
   end
 
@@ -29,8 +29,8 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
 
       get :show, id: project.id
 
-      expect(request.status).to eq 200
-      expect(json).to be_json_eq serialized_question
+      expect(response.status).to eq 200
+      expect(json).to be_json_eq serialized_project
     end
   end
 end
