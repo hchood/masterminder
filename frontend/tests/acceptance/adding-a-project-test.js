@@ -27,17 +27,16 @@ test('user adds a project', function() {
 
   visit('/projects/new');
   fillIn('input[name="name"]', 'Smite the world with plague of man-eating ladybugs');
-  fillIn('textarea[name="description"]', 'They will never see it coming.');
+  fillIn('input[name="description"]', 'They will never see it coming.');
 
   click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('p:contains("Your evil scheme has been recorded!")').length, 1);
     equal(currentRouteName(), 'projects.show',
       'Redirected to project show page');
+    equal(find('h3:contains("Smite the world with plague of man-eating ladybugs")').length, 1);
   });
 });
-
 
 test('form cannot be submitted with missing information', function() {
   visit('/projects/new');
