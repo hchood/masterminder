@@ -15,7 +15,9 @@ class Api::V1::ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     if @project.save
-      render json: @project, status: 201
+      render json: @project,
+        status: 201,
+        location: [:api, :v1, @project]
     else
       render json: { errors: @project.errors },
         status: 422
