@@ -38,6 +38,6 @@ test('project details are displayed', function() {
     equal(currentPath(), 'projects.show');
 
     equal(find('h3:contains("Smite the world with plague of man-eating ladybugs")').length, 1);
-    equal(find('div:contains("They will never see it coming.")').length, 1);
+    equal(find('div#description:contains("They will never see it coming.")').length, 1);
   });
 });
