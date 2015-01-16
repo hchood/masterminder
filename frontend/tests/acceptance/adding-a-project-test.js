@@ -39,10 +39,19 @@ test('user adds a project', function() {
 });
 
 test('form cannot be submitted with missing information', function() {
+  server.post('/api/v1/projects', function(request) {
+    var errors = {
+      name: ["can't be blank"]
+    };
+
+    return [422, {"Content-Type": "application/json"}, JSON.stringify({errors: errors})];
+  });
+
   visit('/projects/new');
+  click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('input[type="submit"]').attr('disabled'), 'disabled',
-      'Submit button is disabled');
+    equal(currentRouteName(), 'projects.new', 'Stayed on new project form');
+    equal(find('p:contains("can\'t be blank")').length, 1);
   });
 });

@@ -5,6 +5,10 @@
     <div>
       <label for="name">Name:</label>
       <input name="name">
+
+      {{#each error in model.errors.name}}
+        <p>{{error.message}}</p>
+      {{/each}}
     </div>
 
     <div>
