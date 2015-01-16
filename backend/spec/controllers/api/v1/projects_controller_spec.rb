@@ -33,4 +33,29 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
       expect(json).to be_json_eq serialized_project
     end
   end
+
+  describe "POST #create" do
+    it "creates a new project" do
+      project_attrs = FactoryGirl.attributes_for(:project)
+
+      prev_count = Project.count
+
+      post :create, project: project_attrs
+
+      expect(response.status).to eq 201
+      expect(Project.count).to eq prev_count + 1
+      expect(json).to be_json_eq ProjectSerializer.new(Project.first)
+    end
+
+    it "fails if required attributes are missing" do
+      project_attrs = { name: '' }
+
+      prev_count = Project.count
+
+      post :create, project: project_attrs
+
+      expect(response.status).to eq 422
+      expect(Project.count).to eq prev_count
+    end
+  end
 end
