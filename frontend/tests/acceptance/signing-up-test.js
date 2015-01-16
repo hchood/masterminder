@@ -45,3 +45,25 @@ test('user signs up', function() {
     // test that a user is logged in, too?
   });
 });
+
+test('cannot sign up with missing information', function() {
+  server.post('/api/v1/users', function(request) {
+    var errors = {
+      first_name: ["can't be blank"],
+      last_name: ["can't be blank"],
+      email: ["can't be blank"],
+      password: ["can't be blank"],
+      password_confirmation: ["can't be blank"]
+    };
+
+    return [422, {"Content-Type": "application/json"}, JSON.stringify({errors: errors})];
+  });
+
+  visit('/users/new');
+  click('input[type="submit"]');
+
+  andThen(function() {
+    equal(currentPath(), 'users.new', 'Stayed on new user form');
+    equal(find('p:contains("can\'t be blank")').length, 5);
+  });
+});
