@@ -4,9 +4,10 @@ gem 'rails', '4.2.0'
 gem 'rails-api'
 gem 'spring', :group => :development
 gem 'pg'
+gem 'active_model_serializers', '0.8.3'
 
 group :test do
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
 end
 
 group :development, :test do

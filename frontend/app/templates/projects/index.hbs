@@ -1,0 +1,7 @@
+<h3>All World Domination Schemes</h3>
+
+<ul>
+  {{#each project in model}}
+    <li>{{link-to project.name 'projects.show' project}}</li>
+  {{/each}}
+</ul>
