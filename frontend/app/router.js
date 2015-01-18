@@ -15,6 +15,9 @@ Router.map(function() {
     this.route('new');
     this.route('show', {path: ':id'});
   });
+
+  this.route('login');
+  this.route('application');
 });
 
 export default Router;
