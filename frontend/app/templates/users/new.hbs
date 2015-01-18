@@ -1,0 +1,59 @@
+<h1>Welcome, wizard!</h1>
+
+<div id="user-form">
+  <form {{action 'save'}}>
+    <div>
+      <label for="first_name">First name:</label>
+      <input name="first_name">
+
+      {{#each error in model.errors.firstName}}
+        <p>{{error.message}}</p>
+      {{/each}}
+    </div>
+
+    <div>
+      <label for="last_name">Last name:</label>
+      <input name="last_name">
+
+      {{#each error in model.errors.lastName}}
+        <p>{{error.message}}</p>
+      {{/each}}
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input name="email">
+
+      {{#each error in model.errors.email}}
+        <p>{{error.message}}</p>
+      {{/each}}
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input name="password">
+
+      {{#each error in model.errors.password}}
+        <p>{{error.message}}</p>
+      {{/each}}
+    </div>
+
+    <div>
+      <label for="password_confirmation">Password confirmation:</label>
+      <input name="password_confirmation">
+
+      {{#each error in model.errors.passwordConfirmation}}
+        <p>{{error.message}}</p>
+      {{/each}}
+    </div>
+
+    <div>
+      <label for="bio">Bio:</label>
+      <textarea name="bio"></textarea>
+    </div>
+
+    <div>
+      <input type="Submit">
+    </div>
+  </form>
+</div>
