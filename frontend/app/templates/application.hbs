@@ -1,4 +1,9 @@
 <h2 id="title">Mastermind</h2>
+
+{{#if session.isAuthenticated}}
+  <h3>Welcome, {{session.currentUser.firstName}}!</h3>
+{{/if}}
+
 <ul>
   <li>{{link-to 'Projects' 'projects.index'}}</li>
   <li>{{link-to 'Add a project' 'projects.new'}}</li>
@@ -7,6 +12,7 @@
     <li><a href="#" {{ action 'invalidateSession' }}>Logout</a></li>
   {{else}}
     <li>{{link-to 'Login' 'login'}}</li>
+    <li>{{link-to 'Sign Up' 'sign-up'}}</li>
   {{/if}}
 </ul>
 

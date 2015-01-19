@@ -1,0 +1,38 @@
+<form {{action 'signUp' model on='submit'}}>
+  <div>
+    <label for="email">Email</label>
+    {{input name="email" value=model.email placeholder='Enter Email'}}
+  </div>
+
+  <div>
+    <label for="firstName">First name</label>
+    {{input name="firstName" value=model.firstName placeholder='Enter first name'}}
+  </div>
+
+  <div>
+    <label for="lastName">Last name</label>
+    {{input name="lastName" value=model.lastName placeholder='Enter last name'}}
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    {{input name="password" value=model.password placeholder='Enter password' type='password'}}
+  </div>
+
+  <div>
+    <label for="passwordConfirmation">Password confirmation</label>
+    {{input name="passwordConfirmation"
+      value=model.passwordConfirmation
+      placeholder='Re-enter password'
+      type='password'}}
+  </div>
+
+  <div>
+    <label for="bio">Bio</label>
+    {{input name="bio" value=model.bio placeholder='Enter bio'}}
+  </div>
+
+  <div>
+    <input type="submit" value="Sign up">
+  </div>
+</form>
