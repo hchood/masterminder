@@ -13,6 +13,8 @@ RSpec.describe User, type: :model do
 
     it { should validate_uniqueness_of :email }
     it { should validate_uniqueness_of :access_token }
+
+    it { should have_many(:projects).dependent(:nullify) }
   end
 
   describe "before_validation callback" do
