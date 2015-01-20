@@ -1,1 +1,13 @@
-<h3>Welcome, {{firstName}}!</h3>
+<h4>{{firstName}} {{lastName}}</h4>
+
+<div id="bio">
+  Bio: {{bio}}
+</div>
+
+<h4>Projects:</h4>
+
+<ul id="projects">
+  {{#each project in projects}}
+    <li>{{link-to project.name 'projects.show' project}}</li>
+  {{/each}}
+</ul>

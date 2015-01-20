@@ -6,5 +6,7 @@ export default DS.Model.extend({
   email: DS.attr('string'),
   password: DS.attr('string'),
   passwordConfirmation: DS.attr('string'),
-  bio: DS.attr('string')
+  bio: DS.attr('string'),
+
+  projects: DS.hasMany('project', { async: true })
 });
