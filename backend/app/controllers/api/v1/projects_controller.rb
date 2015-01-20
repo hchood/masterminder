@@ -1,4 +1,6 @@
 class Api::V1::ProjectsController < ApplicationController
+  before_action :ensure_user_authenticated!, only: :create
+
   def index
     @projects = Project.order(created_at: :desc)
 

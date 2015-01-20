@@ -10,6 +10,13 @@ class User < ActiveRecord::Base
 
   before_validation :set_access_token, on: :create
 
+  def self.from_request(request)
+    return unless request.authorization
+
+    bearer_token = request.authorization.gsub(/\ABearer /, '')
+    find_by(access_token: bearer_token)
+  end
+
   private
 
   def set_access_token

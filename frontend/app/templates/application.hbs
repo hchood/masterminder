@@ -6,9 +6,9 @@
 
 <ul>
   <li>{{link-to 'Projects' 'projects.index'}}</li>
-  <li>{{link-to 'Add a project' 'projects.new'}}</li>
 
   {{#if session.isAuthenticated}}
+    <li>{{link-to 'Add a project' 'projects.new'}}</li>
     <li><a href="#" {{ action 'invalidateSession' }}>Logout</a></li>
   {{else}}
     <li>{{link-to 'Login' 'login'}}</li>
