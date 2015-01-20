@@ -30,5 +30,18 @@ module Mastermind
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    if Rails.env.development?
+      config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
+        allow do
+          origins 'http://localhost:4200'
+
+          resource '*',
+          headers: :any,
+          methods: [:get, :post, :delete, :put, :options],
+          max_age: 0
+        end
+      end
+    end
   end
 end
