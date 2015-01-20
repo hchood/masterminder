@@ -2,21 +2,37 @@
   <div>
     <label for="email">Email</label>
     {{input name="email" value=model.email placeholder='Enter Email'}}
+
+    {{#each error in model.errors.email}}
+      <p>{{error.message}}</p>
+    {{/each}}
   </div>
 
   <div>
     <label for="firstName">First name</label>
     {{input name="firstName" value=model.firstName placeholder='Enter first name'}}
+
+    {{#each error in model.errors.firstName}}
+      <p>{{error.message}}</p>
+    {{/each}}
   </div>
 
   <div>
     <label for="lastName">Last name</label>
     {{input name="lastName" value=model.lastName placeholder='Enter last name'}}
+
+    {{#each error in model.errors.lastName}}
+      <p>{{error.message}}</p>
+    {{/each}}
   </div>
 
   <div>
     <label for="password">Password</label>
     {{input name="password" value=model.password placeholder='Enter password' type='password'}}
+
+    {{#each error in model.errors.password}}
+      <p>{{error.message}}</p>
+    {{/each}}
   </div>
 
   <div>
@@ -25,11 +41,19 @@
       value=model.passwordConfirmation
       placeholder='Re-enter password'
       type='password'}}
+
+      {{#each error in model.errors.passwordConfirmation}}
+        <p>{{error.message}}</p>
+      {{/each}}
   </div>
 
   <div>
     <label for="bio">Bio</label>
     {{input name="bio" value=model.bio placeholder='Enter bio'}}
+
+    {{#each error in model.errors.bio}}
+      <p>{{error.message}}</p>
+    {{/each}}
   </div>
 
   <div>
