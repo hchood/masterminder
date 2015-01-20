@@ -15,13 +15,23 @@ module('Acceptance: ProjectShow', {
     var project = {
       id: 1,
       name: 'Smite the world with plague of man-eating ladybugs',
-      description: 'They will never see it coming.'
+      description: 'They will never see it coming.',
+      user_id: 3
+    };
+
+    var user = {
+      id: 3,
+      firstName: 'Faizaan',
+      lastName: 'The Wizard',
+      email: 'faizaan@nefariousschemers.com',
+      bio: 'I am an evil schemer.',
+      project_ids: [1, 2, 3]
     };
 
     // mock out response
     server = new Pretender(function(){
       this.get('/api/v1/projects/:id', function(request) {
-        return [200, {"Content-Type": "application/json"}, JSON.stringify({project: project})];
+        return [200, {"Content-Type": "application/json"}, JSON.stringify({project: project, users: [user]})];
       });
     });
   },
@@ -39,5 +49,7 @@ test('project details are displayed', function() {
 
     equal(find('h3:contains("Smite the world with plague of man-eating ladybugs")').length, 1);
     equal(find('div#description:contains("They will never see it coming.")').length, 1);
+
+    equal(find('a:contains("Faizaan The Wizard")').length, 1);
   });
 });

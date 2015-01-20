@@ -25,7 +25,8 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
   describe "GET #show" do
     it "returns a project" do
       project = FactoryGirl.create(:project)
-      serialized_project = ProjectSerializer.new(project)
+
+      serialized_project = ProjectSerializer.new(project, include: [:user])
 
       get :show, id: project.id
 
@@ -35,27 +36,42 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
   end
 
   describe "POST #create" do
-    it "creates a new project" do
-      project_attrs = FactoryGirl.attributes_for(:project)
+    context "with valid access token" do
+      before :each do
+        user = FactoryGirl.create(:user)
+        request.env["HTTP_AUTHORIZATION"] = "Bearer #{user.access_token}"
+      end
 
-      prev_count = Project.count
+      it "creates a new project" do
+        project_attrs = FactoryGirl.attributes_for(:project)
 
-      post :create, project: project_attrs
+        prev_count = Project.count
 
-      expect(response.status).to eq 201
-      expect(Project.count).to eq prev_count + 1
-      expect(json).to be_json_eq ProjectSerializer.new(Project.first)
+        post :create, project: project_attrs
+
+        expect(response.status).to eq 201
+        expect(Project.count).to eq prev_count + 1
+        expect(json).to be_json_eq ProjectSerializer.new(Project.first)
+      end
+
+      it "fails if required attributes are missing" do
+        project_attrs = { name: '' }
+
+        prev_count = Project.count
+
+        post :create, project: project_attrs
+
+        expect(response.status).to eq 422
+        expect(Project.count).to eq prev_count
+      end
     end
 
-    it "fails if required attributes are missing" do
-      project_attrs = { name: '' }
-
-      prev_count = Project.count
+    it "requires authentication" do
+      project_attrs = FactoryGirl.attributes_for(:project)
 
       post :create, project: project_attrs
 
-      expect(response.status).to eq 422
-      expect(Project.count).to eq prev_count
+      expect(response.status).to eq 401
     end
   end
 end

@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :project do
-    name "MyString"
-description "MyText"
+    user
+    
+    name "Taking over the world"
+    description "One evil plan at a time"
   end
-
 end

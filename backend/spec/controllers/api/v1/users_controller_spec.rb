@@ -35,7 +35,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET #show" do
     it "returns a user" do
       user = FactoryGirl.create(:user)
-      serialized_user = UserSerializer.new(user)
+      projects = FactoryGirl.create_list(:project, 3,
+        user: user)
+
+      serialized_user = UserSerializer.new(user, include: [:projects])
 
       get :show, id: user.id
 

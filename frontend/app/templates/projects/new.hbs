@@ -1,10 +1,10 @@
 <h1>Add your evil scheme!</h1>
 
 <div id="project-form">
-  <form {{action 'save'}}>
+  <form {{action 'save' model on='submit'}}>
     <div>
       <label for="name">Name:</label>
-      <input name="name">
+      {{input name="name" value=model.name placeholder='Enter project name'}}
 
       {{#each error in model.errors.name}}
         <p>{{error.message}}</p>
@@ -13,7 +13,7 @@
 
     <div>
       <label for="description">Description:</label>
-      <input name="description" type="text">
+      {{input name="description" value=model.description placeholder='Enter project description'}}
     </div>
 
     <div>

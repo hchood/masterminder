@@ -1,4 +1,6 @@
 class Api::V1::ProjectsController < ApplicationController
+  before_action :ensure_user_authenticated!, only: :create
+
   def index
     @projects = Project.order(created_at: :desc)
 
@@ -6,13 +8,13 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.includes(:user).find(params[:id])
 
-    render json: @project
+    render json: @project, include: [:user]
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.build(project_params)
 
     if @project.save
       render json: @project,
