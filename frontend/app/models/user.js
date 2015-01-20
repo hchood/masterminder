@@ -8,5 +8,9 @@ export default DS.Model.extend({
   passwordConfirmation: DS.attr('string'),
   bio: DS.attr('string'),
 
-  projects: DS.hasMany('project', { async: true })
+  projects: DS.hasMany('project', { async: true }),
+
+  fullName: function() {
+    return this.get('firstName') + ' ' + this.get('lastName');
+  }.property('firstName', 'lastName')
 });

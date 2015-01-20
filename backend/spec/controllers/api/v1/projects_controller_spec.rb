@@ -25,7 +25,8 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
   describe "GET #show" do
     it "returns a project" do
       project = FactoryGirl.create(:project)
-      serialized_project = ProjectSerializer.new(project)
+
+      serialized_project = ProjectSerializer.new(project, include: [:user])
 
       get :show, id: project.id
 
