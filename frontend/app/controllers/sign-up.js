@@ -14,12 +14,10 @@ export default Ember.Controller.extend(AuthControllerMixin, {
         password: password
       };
 
-      user.save().then(function(user) {
+      user.save().then(function() {
         _this.send('authenticate', options);
-        debugger;
-        // _this.transitionTo('users.show', model);
-      }, function(response) {
-        // save didnt workered
+      }, function() {
+        // save didnt work
       });
     }
   }
