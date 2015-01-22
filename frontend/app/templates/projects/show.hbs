@@ -5,3 +5,11 @@
 <div id="description">
   {{description}}
 </div>
+
+<h4>Tasks</h4>
+
+<ul>
+  {{#each task in tasks}}
+    <li>{{task.name}}</li>
+  {{/each}}
+</ul>
