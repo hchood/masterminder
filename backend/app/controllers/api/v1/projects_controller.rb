@@ -8,9 +8,9 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.includes(:user).find(params[:id])
+    @project = Project.includes(:user, :tasks).find(params[:id])
 
-    render json: @project, include: [:user]
+    render json: @project, include: [:user, :tasks]
   end
 
   def create

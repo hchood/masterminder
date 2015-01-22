@@ -28,10 +28,27 @@ module('Acceptance: ProjectShow', {
       project_ids: [1, 2, 3]
     };
 
+    var tasks = [
+      { id: 1,
+        project_id: 1,
+        name: 'Genetically modify ladybugs'
+      },
+      {
+        id: 2,
+        project_id: 1,
+        name: 'Release them on the world'
+      },
+      {
+        id: 3,
+        project_id: 1,
+        name: 'Monitor destruction'
+      }
+    ];
+
     // mock out response
     server = new Pretender(function(){
       this.get('/api/v1/projects/:id', function(request) {
-        return [200, {"Content-Type": "application/json"}, JSON.stringify({project: project, users: [user]})];
+        return [200, {"Content-Type": "application/json"}, JSON.stringify({project: project, users: [user], tasks: tasks})];
       });
     });
   },
@@ -51,5 +68,9 @@ test('project details are displayed', function() {
     equal(find('div#description:contains("They will never see it coming.")').length, 1);
 
     equal(find('a:contains("Faizaan The Wizard")').length, 1);
+
+    equal(find('li:contains("Genetically modify ladybugs")').length, 1);
+    equal(find('li:contains("Release them on the world")').length, 1);
+    equal(find('li:contains("Monitor destruction")').length, 1);
   });
 });
