@@ -1,23 +1,23 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    users = User.order(:last_name, :first_name)
+    @users = User.order(:last_name, :first_name)
 
-    render json: users
+    render json: @users
   end
 
   def show
-    user = User.includes(:projects).find(params[:id])
+    @user = User.includes(:projects).find(params[:id])
 
-    render json: user, include: [:projects]
+    render json: @user, include: [:projects]
   end
 
   def create
-    user = User.new(user_params)
+    @user = User.new(user_params)
 
-    if user.save
-      render json: user, location: [:api, :v1, user], status: 201
+    if @user.save
+      render json: @user, location: [:api, :v1, @user], status: 201
     else
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: @user.errors }, status: 422
     end
   end
 
