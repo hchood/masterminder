@@ -1,4 +1,10 @@
 class Api::V1::UsersController < ApplicationController
+  def index
+    users = User.order(:last_name, :first_name)
+
+    render json: users
+  end
+
   def show
     user = User.includes(:projects).find(params[:id])
 

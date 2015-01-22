@@ -46,4 +46,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(json).to be_json_eq serialized_user
     end
   end
+
+  describe "GET #index" do
+    it "returns all the users, ordered by last name, then first name" do
+      last_user = FactoryGirl.create(:user,
+        first_name: "Zoe", last_name: "Smith")
+      first_user = FactoryGirl.create(:user,
+        first_name: "Alex", last_name: "Aaronson")
+      middle_user = FactoryGirl.create(:user,
+        first_name: "Amanda", last_name: "Smith")
+
+      ordered_users = [first_user, middle_user, last_user]
+
+      get :index
+
+      serialized_users = ActiveModel::ArraySerializer.new(ordered_users,
+        root: :users)
+
+      expect(response.status).to eq 200
+      expect(json).to be_json_eq(serialized_users)
+    end
+  end
 end
