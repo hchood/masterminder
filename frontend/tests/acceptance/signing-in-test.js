@@ -10,8 +10,7 @@ module('Acceptance: Signing In', {
 
     server = new Pretender();
 
-    // this is never called
-    server.post('/api/v1/token', function(request) {
+    server.post('api/v1/token', function(request) {
       var payload = {
         user_token: 'gvSkMer7hZpw9iZsBZ4r',
         user_id: 3
@@ -34,12 +33,9 @@ test('user signs in', function() {
   click('input[type="submit"]');
 
   andThen(function() {
-    expect(0);
-    // None of these pass b/c of issues with simple-auth in test.
-    // Pretender never mocks out response.
+    expect(2);
 
-    // equal(find('a:contains("Logout")').length, 1);
-    // equal(currentPath(), 'projects.index', 'Redirected to projects index page');
-    // equal(find('li:contains("Welcome, Faizaan!")').length, 1);
+    equal(find('a:contains("Logout")').length, 1);
+    equal(find('a:contains("Login")').length, 0);
   });
 });
