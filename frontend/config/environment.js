@@ -50,6 +50,7 @@ module.exports = function(environment) {
     ENV['simple-auth'] = {
       store: 'simple-auth-session-store:ephemeral'
     }
+    ENV['simple-auth-oauth2'].serverTokenEndpoint = '/api/v1/token';
   }
 
   if (environment === 'production') {
