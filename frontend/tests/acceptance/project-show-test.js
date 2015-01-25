@@ -101,3 +101,23 @@ test('user adds a task successfully', function() {
     equal(currentPath(), 'projects.show');
   });
 });
+
+test('form cannot be submitted with missing information', function () {
+  server.post('api/v1/tasks', function() {
+    var errors = {
+      name: ["can't be blank"]
+    };
+
+    return [422, {"Content-Type": "application/json"}, JSON.stringify({errors: errors})];
+  });
+
+  authenticateSession();
+  visit('/projects/1');
+
+  click('input[type="submit"]');
+
+  andThen(function() {
+    equal(find('p:contains("can\'t be blank")').length, 1);
+  });
+});
+
