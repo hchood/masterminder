@@ -114,9 +114,17 @@ test('form cannot be submitted with missing information', function () {
   authenticateSession();
   visit('/projects/1');
 
+  var initialTaskCount;
+
+  andThen(function() {
+    initialTaskCount = find('.project-task').length;
+    console.log("Initial task count: " + initialTaskCount);
+  });
+
   click('input[type="submit"]');
 
   andThen(function() {
+    equal(find('.project-task').length, initialTaskCount);
     equal(find('p:contains("can\'t be blank")').length, 1);
   });
 });

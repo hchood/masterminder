@@ -20,6 +20,7 @@ export default Ember.Controller.extend({
         _this.set('model', newTask);
       }, function() {
         // Failed!
+        task.set('project', null);
       });
     }
   }
