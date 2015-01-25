@@ -1,0 +1,18 @@
+<h4>Add a task:</h4>
+
+<div id="task-form">
+  <form {{action 'save' model on='submit'}}>
+    <div>
+      <label for="name">Name:</label>
+      {{input name="name" value=model.name placeholder='Enter task name'}}
+
+      {{#each error in model.errors.name}}
+        <p>{{error.message}}</p>
+      {{/each}}
+    </div>
+
+    <div>
+      <input type="Submit">
+    </div>
+  </form>
+</div>
