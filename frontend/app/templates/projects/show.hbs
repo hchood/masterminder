@@ -14,4 +14,8 @@
   {{/each}}
 </ul>
 
-{{ render 'tasks.new' task }}
+{{#if session.isAuthenticated}}
+  {{#if canEdit}}
+    {{ render 'tasks.new' task }}
+  {{/if}}
+{{/if}}

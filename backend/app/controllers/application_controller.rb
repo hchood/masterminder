@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
-
+  include Pundit
+  
   protected
 
   def ensure_user_authenticated!

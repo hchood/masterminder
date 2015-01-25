@@ -2,12 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::TasksController, type: :controller do
   describe "POST #create" do
-    context "with valid access token" do
+    context "as project creator, with valid access token" do
       before :each do
-        user = FactoryGirl.create(:user)
-        request.env["HTTP_AUTHORIZATION"] = "Bearer #{user.access_token}"
-
         @project = FactoryGirl.create(:project)
+
+        request.env["HTTP_AUTHORIZATION"] = "Bearer #{@project.user.access_token}"
       end
 
       it "creates a new project" do
@@ -24,7 +23,10 @@ RSpec.describe Api::V1::TasksController, type: :controller do
       end
 
       it "fails if required attributes are missing" do
-        task_attrs = { name: '' }
+        task_attrs = {
+          project_id: @project.id,
+          name: ''
+        }
 
         prev_count = @project.tasks.count
 
@@ -41,6 +43,18 @@ RSpec.describe Api::V1::TasksController, type: :controller do
       post :create, task: task_attrs
 
       expect(response.status).to eq 401
+    end
+
+    it "only allows project creator to create task" do
+      project = FactoryGirl.create(:project)
+      user = FactoryGirl.create(:user)
+
+      request.env["HTTP_AUTHORIZATION"] = "Bearer #{user.access_token}"
+
+      task_attrs = FactoryGirl.attributes_for(:task)
+      task_attrs[:project_id] = project.id
+
+      expect{ post :create, task: task_attrs }.to raise_error
     end
   end
 end

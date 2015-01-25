@@ -12,7 +12,8 @@ module('Acceptance: ProjectShow', {
       id: 1,
       name: 'Smite the world with plague of man-eating ladybugs',
       description: 'They will never see it coming.',
-      user_id: 3
+      user_id: 3,
+      canEdit: true
     };
 
     var user = {
@@ -90,7 +91,6 @@ test('user adds a task successfully', function() {
 
   andThen(function() {
     initialTaskCount = find('.project-task').length;
-    console.log("Initial task count: " + initialTaskCount);
   });
 
   fillIn('input[name="name"]', 'Assemble minions');
@@ -99,5 +99,96 @@ test('user adds a task successfully', function() {
   andThen(function() {
     equal(find('.project-task').length, initialTaskCount + 1);
     equal(currentPath(), 'projects.show');
+  });
+});
+
+test('form cannot be submitted with missing information', function () {
+  server.post('api/v1/tasks', function() {
+    var errors = {
+      name: ["can't be blank"]
+    };
+
+    return [422, {"Content-Type": "application/json"}, JSON.stringify({errors: errors})];
+  });
+
+  authenticateSession();
+  visit('/projects/1');
+
+  var initialTaskCount;
+
+  andThen(function() {
+    initialTaskCount = find('.project-task').length;
+    console.log("Initial task count: " + initialTaskCount);
+  });
+
+  click('input[type="submit"]');
+
+  andThen(function() {
+    equal(find('.project-task').length, initialTaskCount);
+    equal(find('p:contains("can\'t be blank")').length, 1);
+  });
+});
+
+test('form is not accessible when user is not logged in', function() {
+  invalidateSession();
+
+  visit('/projects/1');
+
+  andThen(function() {
+    equal(find('h4:contains("Add a task")').length, 0);
+    equal(find('input[type="submit"]').length, 0);
+  });
+});
+
+test('form is not accessible when user is not the project creator', function() {
+  // What's the best way to DRY up this test?
+
+  // canEdit is false
+  var project = {
+    id: 1,
+    name: 'Smite the world with plague of man-eating ladybugs',
+    description: 'They will never see it coming.',
+    user_id: 3
+  };
+
+  var user = {
+    id: 3,
+    firstName: 'Faizaan',
+    lastName: 'The Wizard',
+    email: 'faizaan@nefariousschemers.com',
+    bio: 'I am an evil schemer.',
+    project_ids: [1, 2, 3]
+  };
+
+  var tasks = [
+    { id: 1,
+      project_id: 1,
+      name: 'Genetically modify ladybugs'
+    },
+    {
+      id: 2,
+      project_id: 1,
+      name: 'Release them on the world'
+    },
+    {
+      id: 3,
+      project_id: 1,
+      name: 'Monitor destruction'
+    }
+  ];
+
+  server = new Pretender(function(){
+    this.get('/api/v1/projects/:id', function(request) {
+      return [200, {"Content-Type": "application/json"}, JSON.stringify({project: project, users: [user], tasks: tasks})];
+    });
+  });
+
+  authenticateSession();
+
+  visit('/projects/1');
+
+  andThen(function() {
+    equal(find('h4:contains("Add a task")').length, 0);
+    equal(find('input[type="submit"]').length, 0);
   });
 });
