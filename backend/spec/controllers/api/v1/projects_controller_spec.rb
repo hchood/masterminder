@@ -39,8 +39,8 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
   describe "POST #create" do
     context "with valid access token" do
       before :each do
-        user = FactoryGirl.create(:user)
-        request.env["HTTP_AUTHORIZATION"] = "Bearer #{user.access_token}"
+        @current_user = FactoryGirl.create(:user)
+        request.env["HTTP_AUTHORIZATION"] = "Bearer #{@current_user.access_token}"
       end
 
       it "creates a new project" do
@@ -52,7 +52,8 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
 
         expect(response.status).to eq 201
         expect(Project.count).to eq prev_count + 1
-        expect(json).to be_json_eq ProjectSerializer.new(Project.first)
+        expect(json).to be_json_eq ProjectSerializer.new(Project.first,
+          scope: @current_user)
       end
 
       it "fails if required attributes are missing" do
