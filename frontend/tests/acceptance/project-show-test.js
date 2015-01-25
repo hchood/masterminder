@@ -72,49 +72,15 @@ test('project details are displayed', function() {
 test('user adds a task successfully', function() {
   server.post('api/v1/tasks', function() {
 
-    // There has to be a DRYer / better way to do this.
-    // Also, what SHOULD I send back from the server? I don't really need to fetch
-    // the project, user, and other tasks again. Can I just send back the info for
-    // the newly-created task?
-    var project = {
-      id: 1,
-      name: 'Smite the world with plague of man-eating ladybugs',
-      description: 'They will never see it coming.',
-      user_id: 3
+    // Is this the right thing to return from the server?
+
+    var task = {
+      id: 4,
+      project_id: 1,
+      name: 'Assemble minions'
     };
 
-    var user = {
-      id: 3,
-      firstName: 'Faizaan',
-      lastName: 'The Wizard',
-      email: 'faizaan@nefariousschemers.com',
-      bio: 'I am an evil schemer.',
-      project_ids: [1, 2, 3]
-    };
-
-    var tasks = [
-      { id: 1,
-        project_id: 1,
-        name: 'Genetically modify ladybugs'
-      },
-      {
-        id: 2,
-        project_id: 1,
-        name: 'Release them on the world'
-      },
-      {
-        id: 3,
-        project_id: 1,
-        name: 'Monitor destruction'
-      },
-      {
-        id: 4,
-        project_id: 1,
-        name: 'Assemble minions'
-      }
-    ];
-
-    return [201, {"Content-Type": "application/json"}, JSON.stringify({project: project, users: [user], tasks: tasks})];
+    return [201, {"Content-Type": "application/json"}, JSON.stringify({task: task})];
   });
 
   authenticateSession();
@@ -123,7 +89,7 @@ test('user adds a task successfully', function() {
   var initialTaskCount;
 
   andThen(function() {
-    initialTaskCount = find('#tasks-list .project-task').length;
+    initialTaskCount = find('.project-task').length;
     console.log("Initial task count: " + initialTaskCount);
   });
 
@@ -131,7 +97,7 @@ test('user adds a task successfully', function() {
   click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('#tasks-list .project-task').length, initialTaskCount + 1);
+    equal(find('.project-task').length, initialTaskCount + 1);
     equal(currentPath(), 'projects.show');
   });
 });

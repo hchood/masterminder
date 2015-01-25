@@ -7,13 +7,17 @@ export default Ember.Controller.extend({
   actions: {
     save: function() {
       var _this = this;
-      var project = this.get('project.model')
+      var project = this.get('project.model');
       var task = this.get('model');
-debugger;
+
       task.set('project', project);
 
       task.save().then(function() {
-        // stay on project show page
+        // this is in rescue mission but i'm not sure it's necessary
+        project.get('tasks').pushObject(task);
+
+        var newTask = _this.store.createRecord('task');
+        _this.set('model', newTask);
       }, function() {
         // Failed!
       });
