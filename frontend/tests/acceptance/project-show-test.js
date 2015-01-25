@@ -129,3 +129,14 @@ test('form cannot be submitted with missing information', function () {
   });
 });
 
+test('form is not accessible when user is not logged in', function() {
+  invalidateSession();
+
+  visit('/projects/1');
+
+  andThen(function() {
+    equal(find('h4:contains("Add a task")').length, 0);
+    equal(find('input[type="submit"]').length, 0);
+  });
+});
+
