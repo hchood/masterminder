@@ -15,5 +15,7 @@
 </ul>
 
 {{#if session.isAuthenticated}}
-  {{ render 'tasks.new' task }}
+  {{#if canEdit}}
+    {{ render 'tasks.new' task }}
+  {{/if}}
 {{/if}}
