@@ -1,12 +1,18 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  needs: ['projects/show'],
+  project: Ember.computed.alias("controllers.projects/show"),
+
   actions: {
     save: function() {
       var _this = this;
-      var model = this.store.createRecord('task');
+      var project = this.get('project.model')
+      var task = this.get('model');
+debugger;
+      task.set('project', project);
 
-      model.save().then(function() {
+      task.save().then(function() {
         // stay on project show page
       }, function() {
         // Failed!
