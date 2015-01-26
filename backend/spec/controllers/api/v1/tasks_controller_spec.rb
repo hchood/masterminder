@@ -9,7 +9,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
         request.env["HTTP_AUTHORIZATION"] = "Bearer #{@project.user.access_token}"
       end
 
-      it "creates a new project" do
+      it "creates a new task" do
         task_attrs = FactoryGirl.attributes_for(:task)
         task_attrs[:project_id] = @project.id
 
