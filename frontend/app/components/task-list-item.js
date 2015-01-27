@@ -8,9 +8,7 @@ export default Ember.Component.extend({
     saveTask: function() {
       var task = this.get('task');
       task.set('completedAt', new Date());
-      task.save().then(function() {
-        console.log(task.completedAt);
-      });
+      task.save();
     }
   }
 });

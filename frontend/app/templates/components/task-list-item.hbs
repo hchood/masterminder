@@ -1,2 +1,7 @@
 {{task.name}}
-<button {{action 'saveTask'}}>Complete</button>
+
+{{#if task.completedAt}}
+  Completed
+{{else}}
+  <button {{action 'saveTask'}}>Complete</button>
+{{/if}}
