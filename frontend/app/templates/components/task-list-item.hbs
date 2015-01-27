@@ -3,5 +3,9 @@
 {{#if task.completedAt}}
   Completed
 {{else}}
-  <button {{action 'saveTask'}}>Complete</button>
+  {{#if session.isAuthenticated}}
+    {{#if task.project.canEdit}}
+      <button {{action 'saveTask'}}>Complete</button>
+    {{/if}}
+  {{/if}}
 {{/if}}
