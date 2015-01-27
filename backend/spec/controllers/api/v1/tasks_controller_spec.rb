@@ -1,6 +1,51 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TasksController, type: :controller do
+  describe "GET #index" do
+    it "returns most recent 25 tasks" do
+      oldest_task = FactoryGirl.create(:task, created_at: 1.week.ago)
+      newest_task = FactoryGirl.create(:task)
+      older_task  = FactoryGirl.create(:task, created_at: 2.days.ago)
+
+      ordered_tasks = [newest_task, older_task, oldest_task]
+
+      get :index
+
+      expect(response.status).to eq 200
+      expect(json).to be_json_eq ActiveModel::ArraySerializer.new(ordered_tasks,
+        root: :tasks)
+    end
+
+    context "with task ids" do
+      it "returns a subset of tasks" do
+        oldest_task = FactoryGirl.create(:task, created_at: 1.week.ago)
+        newest_task = FactoryGirl.create(:task)
+        older_task  = FactoryGirl.create(:task, created_at: 2.days.ago)
+
+        requested_tasks = [newest_task, oldest_task]
+
+        get :index, ids: [newest_task.id, oldest_task.id]
+
+        expect(response.status).to eq 200
+        expect(json).to be_json_eq ActiveModel::ArraySerializer.new(requested_tasks,
+          root: :tasks)
+      end
+    end
+  end
+
+  describe "GET #show" do
+    it "returns a task's details" do
+      task = FactoryGirl.create(:task)
+
+      serialized_task = TaskSerializer.new(task)
+
+      get :show, id: task.id
+
+      expect(response.status).to eq 200
+      expect(json).to be_json_eq serialized_task
+    end
+  end
+
   describe "POST #create" do
     context "as project creator, with valid access token" do
       before :each do
