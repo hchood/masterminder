@@ -1,6 +1,14 @@
 class Api::V1::TasksController < ApplicationController
   before_action :ensure_user_authenticated!, only: [:create, :update]
 
+  def index
+    @tasks = Task.order(created_at: :desc).limit(25)
+    @tasks = @tasks.where(id: params[:ids]) if params[:ids].present?
+binding.pry
+
+    render json: @tasks
+  end
+
   def show
     @task = Task.find(params[:id])
 
