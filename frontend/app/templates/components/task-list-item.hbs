@@ -1,0 +1,9 @@
+{{task.name}}
+
+{{#if task.completedAt}}
+  Completed
+{{else}}
+  {{#if task.project.canEdit}}
+    <button {{action 'saveTask'}}>Complete</button>
+  {{/if}}
+{{/if}}

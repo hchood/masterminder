@@ -90,14 +90,14 @@ test('user adds a task successfully', function() {
   var initialTaskCount;
 
   andThen(function() {
-    initialTaskCount = find('.project-task').length;
+    initialTaskCount = find('.task-list-item').length;
   });
 
   fillIn('input[name="name"]', 'Assemble minions');
   click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('.project-task').length, initialTaskCount + 1);
+    equal(find('.task-list-item').length, initialTaskCount + 1);
     equal(currentPath(), 'projects.show');
   });
 });
@@ -117,19 +117,59 @@ test('form cannot be submitted with missing information', function () {
   var initialTaskCount;
 
   andThen(function() {
-    initialTaskCount = find('.project-task').length;
+    initialTaskCount = find('.task-list-item').length;
     console.log("Initial task count: " + initialTaskCount);
   });
 
   click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('.project-task').length, initialTaskCount);
+    equal(find('.task-list-item').length, initialTaskCount);
     equal(find('p:contains("can\'t be blank")').length, 1);
   });
 });
 
 test('form is not accessible when user is not logged in', function() {
+  // canEdit is false
+  var project = {
+    id: 1,
+    name: 'Smite the world with plague of man-eating ladybugs',
+    description: 'They will never see it coming.',
+    user_id: 3
+  };
+
+  var user = {
+    id: 3,
+    firstName: 'Faizaan',
+    lastName: 'The Wizard',
+    email: 'faizaan@nefariousschemers.com',
+    bio: 'I am an evil schemer.',
+    project_ids: [1, 2, 3]
+  };
+
+  var tasks = [
+    { id: 1,
+      project_id: 1,
+      name: 'Genetically modify ladybugs'
+    },
+    {
+      id: 2,
+      project_id: 1,
+      name: 'Release them on the world'
+    },
+    {
+      id: 3,
+      project_id: 1,
+      name: 'Monitor destruction'
+    }
+  ];
+
+  server = new Pretender(function(){
+    this.get('/api/v1/projects/:id', function(request) {
+      return [200, {"Content-Type": "application/json"}, JSON.stringify({project: project, users: [user], tasks: tasks})];
+    });
+  });
+
   invalidateSession();
 
   visit('/projects/1');

@@ -1,5 +1,5 @@
 class Api::V1::TasksController < ApplicationController
-  before_action :ensure_user_authenticated!, only: :create
+  before_action :ensure_user_authenticated!, only: [:create, :update]
 
   def create
     @task = Task.new(task_params)
@@ -15,9 +15,21 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def update
+    @task = Task.find(params[:id])
+
+    authorize @task
+
+    if @task.update(task_params)
+      render json: @task
+    else
+      render json: { errors: @task.errors }, status: 422
+    end
+  end
+
   private
 
   def task_params
-    params.require(:task).permit(:name, :project_id)
+    params.require(:task).permit(:name, :project_id, :completed_at)
   end
 end

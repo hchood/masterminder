@@ -10,12 +10,12 @@
 
 <ul id="tasks-list">
   {{#each task in tasks}}
-    <li class="project-task">{{task.name}}</li>
+    {{#task-list-item task=task handleTaskSaved="saveTask"}}
+      {{task.name}}
+    {{/task-list-item}}
   {{/each}}
 </ul>
 
-{{#if session.isAuthenticated}}
-  {{#if canEdit}}
-    {{ render 'tasks.new' task }}
-  {{/if}}
+{{#if canEdit}}
+  {{ render 'tasks.new' task }}
 {{/if}}
