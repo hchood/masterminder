@@ -1,3 +1,27 @@
 @import "bourbon";
 @import "bower_components/neat/app/assets/stylesheets/neat";
 
+$mobile: new-breakpoint(max-width 480px);
+$desktop: new-breakpoint(min-width 850px);
+
+#page {
+  @include outer-container;
+
+  #content {
+    @include media($mobile) {
+      @include span-columns(12);
+    }
+    @include media($desktop) {
+      @include span-columns(8);
+    }
+  }
+
+  #sidebar {
+    @include media($mobile) {
+      @include span-columns(12);
+    }
+    @include media($desktop) {
+      @include span-columns(4);
+    }
+  }
+}
