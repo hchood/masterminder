@@ -10,7 +10,9 @@
 
 <ul id="tasks-list">
   {{#each task in tasks}}
-    <li class="project-task">{{task.name}}</li>
+    {{#task-list-item task=task handleTaskSaved="saveTask"}}
+      {{task.name}}
+    {{/task-list-item}}
   {{/each}}
 </ul>
 
