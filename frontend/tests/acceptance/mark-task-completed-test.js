@@ -46,10 +46,10 @@ test('project creator marks task complete', function() {
   authenticateSession();
 
   visit('/projects/1');
-  click('input:contains("Complete")');
+  click('button:contains("Complete")');
 
   andThen(function() {
-    equal(find('input:contains("Complete")').length, 0);
+    equal(find('button:contains("Complete")').length, 0);
     equal(find('li:contains("Completed")').length, 1);
   });
 });

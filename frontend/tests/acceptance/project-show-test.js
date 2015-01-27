@@ -90,14 +90,14 @@ test('user adds a task successfully', function() {
   var initialTaskCount;
 
   andThen(function() {
-    initialTaskCount = find('.project-task').length;
+    initialTaskCount = find('.task-list-item').length;
   });
 
   fillIn('input[name="name"]', 'Assemble minions');
   click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('.project-task').length, initialTaskCount + 1);
+    equal(find('.task-list-item').length, initialTaskCount + 1);
     equal(currentPath(), 'projects.show');
   });
 });
@@ -117,14 +117,14 @@ test('form cannot be submitted with missing information', function () {
   var initialTaskCount;
 
   andThen(function() {
-    initialTaskCount = find('.project-task').length;
+    initialTaskCount = find('.task-list-item').length;
     console.log("Initial task count: " + initialTaskCount);
   });
 
   click('input[type="submit"]');
 
   andThen(function() {
-    equal(find('.project-task').length, initialTaskCount);
+    equal(find('.task-list-item').length, initialTaskCount);
     equal(find('p:contains("can\'t be blank")').length, 1);
   });
 });
