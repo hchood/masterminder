@@ -1,6 +1,12 @@
 class Api::V1::TasksController < ApplicationController
   before_action :ensure_user_authenticated!, only: [:create, :update]
 
+  def show
+    @task = Task.find(params[:id])
+
+    render json: @task
+  end
+
   def create
     @task = Task.new(task_params)
 

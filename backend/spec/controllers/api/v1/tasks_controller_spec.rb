@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TasksController, type: :controller do
+  describe "GET #show" do
+    it "returns a task's details" do
+      task = FactoryGirl.create(:task)
+
+      serialized_task = TaskSerializer.new(task)
+
+      get :show, id: task.id
+
+      expect(response.status).to eq 200
+      expect(json).to be_json_eq serialized_task
+    end
+  end
+
   describe "POST #create" do
     context "as project creator, with valid access token" do
       before :each do
