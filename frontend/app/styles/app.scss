@@ -6,6 +6,8 @@ $desktop: new-breakpoint(min-width 850px);
 
 $base-accent-color: #bff073 !default;
 $base-color: #ffd041 !default;
+$base-font-color: #f05b47;
+$hover-font-color: #7f7f7f;
 
 #page {
   @include outer-container;
@@ -47,10 +49,10 @@ $base-color: #ffd041 !default;
 
     $sidebar-border-color: $base-color;
     $sidebar-background: lighten($sidebar-border-color, 20%);
-    $sidebar-color: #f05b47;
+    $sidebar-color: $base-font-color;
     $sidebar-border: 1px solid $sidebar-border-color;
-    $sidebar-background-hover: $base-accent-color;
-    $sidebar-color-hover: #7f7f7f;
+    $sidebar-background-hover: lighten($base-accent-color, 15%);
+    $sidebar-color-hover: darken($base-font-color, 20%);
     $sidebar-background-focus: lighten($sidebar-background, 5%);
 
     background: $sidebar-background;
@@ -69,6 +71,70 @@ $base-color: #ffd041 !default;
       &:hover {
         background-color: $sidebar-background-hover;
         color: $sidebar-color-hover;
+      }
+    }
+  }
+}
+
+div.header {
+  @include span-columns(12);
+  background: $base-accent-color;
+  padding: 0.5em;
+
+  .title {
+    margin-left: 10px;
+    margin-top: 5px;
+    @include media($mobile) {
+      @include span-columns(12);
+    }
+    @include media($desktop) {
+      @include span-columns(8);
+    }
+    font-size:  36px;
+  }
+
+  nav ul {
+    @include media($mobile) {
+      @include span-columns(4);
+    }
+
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      display: inline-block;
+    }
+
+    a {
+      text-decoration: none;
+    }
+    //////////////////////////////////////////////////////////////////////////////////
+
+    $topbar-border-color: $base-accent-color;
+    $topbar-background: $topbar-border-color;
+    $topbar-color: $base-font-color;
+    $topbar-border: 1px solid $topbar-border-color;
+    $topbar-background-hover: lighten($base-accent-color, 15%);
+    $topbar-color-hover: darken($base-font-color, 20%);
+    $topbar-background-focus: lighten($topbar-background, 5%);
+
+    background: $topbar-background;
+
+    li a {
+      border-bottom: $topbar-border;
+      color: $topbar-color;
+      display: inline-block;
+      font-weight: bold;
+      padding: 1em;
+
+      &:focus {
+        background-color: $topbar-background-focus;
+      }
+
+      &:hover {
+        background-color: $topbar-background-hover;
+        color: $topbar-color-hover;
       }
     }
   }

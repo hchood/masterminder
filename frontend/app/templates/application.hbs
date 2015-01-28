@@ -1,23 +1,33 @@
 <div id="page">
-  <div id="sidebar" class="sliding-menu-content">
-    <h2 id="title">Mastermind</h2>
+  <div class="header">
+    <div class="banner">
+      <span class="title">Masterminder</span>
+
+      <nav>
+        <ul>
+          {{#if session.isAuthenticated}}
+            <li>Welcome, {{session.currentUser.firstName}}!</li>
+          {{/if}}
+
+          {{#if session.isAuthenticated}}
+            <li><a href="#" {{ action 'invalidateSession' }}>Logout</a></li>
+          {{else}}
+            <li>{{link-to 'Login' 'login'}}</li>
+            <li>{{link-to 'Sign Up' 'sign-up'}}</li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
+  </div>
 
   <div id="sidebar" class="sidebar-content">
-    {{#if session.isAuthenticated}}
-      <h3>Welcome, {{session.currentUser.firstName}}!</h3>
-    {{/if}}
-
     <ul>
-      <li>{{link-to 'Projects' 'projects.index'}}</li>
-      <li>{{link-to 'Users' 'users.index'}}</li>
-
       {{#if session.isAuthenticated}}
         <li>{{link-to 'Add a project' 'projects.new'}}</li>
-        <li><a href="#" {{ action 'invalidateSession' }}>Logout</a></li>
-      {{else}}
-        <li>{{link-to 'Login' 'login'}}</li>
-        <li>{{link-to 'Sign Up' 'sign-up'}}</li>
       {{/if}}
+
+      <li>{{link-to 'Projects' 'projects.index'}}</li>
+      <li>{{link-to 'Users' 'users.index'}}</li>
     </ul>
   </div>
 
