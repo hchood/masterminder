@@ -1,20 +1,37 @@
-<h2 id="title">Mastermind</h2>
+<div id="page">
+  <div class="header">
+    <div class="banner">
+      <span class="title">Masterminder</span>
 
-{{#if session.isAuthenticated}}
-  <h3>Welcome, {{session.currentUser.firstName}}!</h3>
-{{/if}}
+      <nav>
+        <ul>
+          {{#if session.isAuthenticated}}
+            <li>Welcome, {{session.currentUser.firstName}}!</li>
+          {{/if}}
 
-<ul>
-  <li>{{link-to 'Projects' 'projects.index'}}</li>
-  <li>{{link-to 'Users' 'users.index'}}</li>
+          {{#if session.isAuthenticated}}
+            <li><a href="#" {{ action 'invalidateSession' }}>Logout</a></li>
+          {{else}}
+            <li>{{link-to 'Login' 'login'}}</li>
+            <li>{{link-to 'Sign Up' 'sign-up'}}</li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
+  </div>
 
-  {{#if session.isAuthenticated}}
-    <li>{{link-to 'Add a project' 'projects.new'}}</li>
-    <li><a href="#" {{ action 'invalidateSession' }}>Logout</a></li>
-  {{else}}
-    <li>{{link-to 'Login' 'login'}}</li>
-    <li>{{link-to 'Sign Up' 'sign-up'}}</li>
-  {{/if}}
-</ul>
+  <div id="sidebar" class="sidebar-content">
+    <ul>
+      {{#if session.isAuthenticated}}
+        <li>{{link-to 'Add a project' 'projects.new'}}</li>
+      {{/if}}
 
-{{outlet}}
+      <li>{{link-to 'Projects' 'projects.index'}}</li>
+      <li>{{link-to 'Users' 'users.index'}}</li>
+    </ul>
+  </div>
+
+  <div id="content">
+    {{outlet}}
+  </div>
+</div>
