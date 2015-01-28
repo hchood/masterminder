@@ -1,12 +1,5 @@
 {{topbar-nav}}
 
-<ul>
-  <li>{{link-to 'Projects' 'projects.index'}}</li>
-  <li>{{link-to 'Users' 'users.index'}}</li>
-
-  {{#if session.isAuthenticated}}
-    <li>{{link-to 'Add a project' 'projects.new'}}</li>
-  {{/if}}
-</ul>
+{{sidebar-nav}}
 
 {{outlet}}

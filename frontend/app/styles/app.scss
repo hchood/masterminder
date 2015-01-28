@@ -1,2 +1,8 @@
 @import "settings";
 @import "foundation";
+
+.custom-side-nav {
+  @include side-nav();
+
+  background: $snow;
+}
