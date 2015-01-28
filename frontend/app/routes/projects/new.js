@@ -15,6 +15,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       }, function() {
         // Failed!
       });
+    },
+
+    willTransition: function() {
+      var model = this.currentModel;
+
+      if (model.get('isNew')) {
+        model.deleteRecord();
+      }
     }
   }
 });
