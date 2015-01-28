@@ -1,23 +1,25 @@
-<h1>Add your evil scheme!</h1>
+<div class="large-8 small-12 columns">
+  <h3>Add your evil scheme!</h3>
 
-<div id="project-form">
-  <form {{action 'save' model on='submit'}}>
-    <div>
-      <label for="name">Name:</label>
-      {{input name="name" value=model.name placeholder='Enter project name'}}
+  <div id="project-form">
+    <form {{action 'save' model on='submit'}}>
+      <div>
+        <label for="name">Name:</label>
+        {{input name="name" value=model.name placeholder='Enter project name'}}
 
-      {{#each error in model.errors.name}}
-        <p>{{error.message}}</p>
-      {{/each}}
-    </div>
+        {{#each error in model.errors.name}}
+          <p>{{error.message}}</p>
+        {{/each}}
+      </div>
 
-    <div>
-      <label for="description">Description:</label>
-      {{input name="description" value=model.description placeholder='Enter project description'}}
-    </div>
+      <div>
+        <label for="description">Description:</label>
+        {{input name="description" value=model.description placeholder='Enter project description'}}
+      </div>
 
-    <div>
-      <input type="Submit">
-    </div>
-  </form>
+      <div>
+        <input type="Submit" class="button">
+      </div>
+    </form>
+  </div>
 </div>

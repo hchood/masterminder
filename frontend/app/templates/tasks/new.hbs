@@ -1,18 +1,20 @@
-<h4>Add a task:</h4>
+<div class="large-8 small-12 columns">
+  <h4>Add a task:</h4>
 
-<div id="task-form">
-  <form {{action 'save' model on='submit'}}>
-    <div>
-      <label for="name">Name:</label>
-      {{input name="name" value=model.name placeholder='Enter task name'}}
+  <div id="task-form">
+    <form {{action 'save' model on='submit'}}>
+      <div>
+        <label for="name">Name:</label>
+        {{input name="name" value=model.name placeholder='Enter task name'}}
 
-      {{#each error in model.errors.name}}
-        <p>{{error.message}}</p>
-      {{/each}}
-    </div>
+        {{#each error in model.errors.name}}
+          <p>{{error.message}}</p>
+        {{/each}}
+      </div>
 
-    <div>
-      <input type="Submit">
-    </div>
-  </form>
+      <div>
+        <input type="Submit" class="button">
+      </div>
+    </form>
+  </div>
 </div>
