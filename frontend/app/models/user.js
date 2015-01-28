@@ -12,5 +12,9 @@ export default DS.Model.extend({
 
   fullName: function() {
     return this.get('firstName') + ' ' + this.get('lastName');
-  }.property('firstName', 'lastName')
+  }.property('firstName', 'lastName'),
+
+  welcomeMessage: function() {
+    return 'Welcome, ' + this.get('firstName') + '!'
+  }.property('firstName')
 });
