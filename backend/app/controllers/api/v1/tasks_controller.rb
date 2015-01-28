@@ -4,7 +4,6 @@ class Api::V1::TasksController < ApplicationController
   def index
     @tasks = Task.order(created_at: :desc).limit(25)
     @tasks = @tasks.where(id: params[:ids]) if params[:ids].present?
-binding.pry
 
     render json: @tasks
   end
