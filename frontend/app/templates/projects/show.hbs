@@ -1,20 +1,22 @@
-<h3>{{name}}</h3>
+<div class="large-8 small-12 columns">
+  <h3>{{name}}</h3>
 
-<h5>Orchestrated by {{link-to user.fullName 'users.show' user }}</h5>
+  <h5>Orchestrated by {{link-to user.fullName 'users.show' user }}</h5>
 
-<div id="description">
-  {{description}}
+  <div id="description">
+    {{description}}
+  </div>
+
+  <h4>Tasks</h4>
+
+  <ul id="tasks-list">
+    {{#each task in tasks}}
+      {{#task-list-item task=task handleTaskSaved="saveTask"}}
+        {{task.name}}
+      {{/task-list-item}}
+    {{/each}}
+  </ul>
 </div>
-
-<h4>Tasks</h4>
-
-<ul id="tasks-list">
-  {{#each task in tasks}}
-    {{#task-list-item task=task handleTaskSaved="saveTask"}}
-      {{task.name}}
-    {{/task-list-item}}
-  {{/each}}
-</ul>
 
 {{#if canEdit}}
   {{ render 'tasks.new' task }}

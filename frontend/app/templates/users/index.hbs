@@ -1,7 +1,9 @@
-<h3>All Evil Wizards</h3>
+<div class="large-8 small-12 columns">
+  <h3>All Evil Wizards</h3>
 
-<ul>
-  {{#each user in model}}
-    <li>{{link-to user.fullName 'users.show' user}}</li>
-  {{/each}}
-</ul>
+  <ul>
+    {{#each user in model}}
+      <li>{{link-to user.fullName 'users.show' user}}</li>
+    {{/each}}
+  </ul>
+</div>
