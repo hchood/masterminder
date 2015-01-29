@@ -3,4 +3,9 @@
 
 {{#if session.isAuthenticated}}
   <li>{{link-to 'Add a project' 'projects.new'}}</li>
+  <li class="divider"></li>
+  <li>MY PROJECTS</li>
+  {{#each project in session.currentUser.projects}}
+    <li>{{link-to project.name 'projects.show' project}}</li>
+  {{/each}}
 {{/if}}

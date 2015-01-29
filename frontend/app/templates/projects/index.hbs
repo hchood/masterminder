@@ -1,9 +1,11 @@
-<div class="large-8 small-12 columns">
-  <h3>All World Domination Schemes</h3>
+<div class="row">
+  <div class="large-9 small-12 columns">
+    <h3>All World Domination Schemes</h3>
 
-  <ul>
-    {{#each project in model}}
-      <li>{{link-to project.name 'projects.show' project}}</li>
-    {{/each}}
-  </ul>
+    <ul>
+      {{#each project in model}}
+        <li>{{link-to project.name 'projects.show' project}}</li>
+      {{/each}}
+    </ul>
+  </div>
 </div>
