@@ -59,7 +59,7 @@ test('project details are displayed', function() {
   andThen(function() {
     equal(currentPath(), 'projects.show');
 
-    equal(find('h3:contains("Smite the world with plague of man-eating ladybugs")').length, 1);
+    equal(find('p:contains("Smite the world with plague of man-eating ladybugs")').length, 1);
     equal(find('div#description:contains("They will never see it coming.")').length, 1);
 
     equal(find('a:contains("Faizaan The Wizard")').length, 1);

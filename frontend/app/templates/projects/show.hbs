@@ -1,14 +1,22 @@
 <div class="row">
   <div class="large-9 small-12 columns">
-    <h3>{{name}}</h3>
+    <div id="project-info">
+      <h4>PROJECT INFO</h4>
 
-    <h5>Orchestrated by {{link-to user.fullName 'users.show' user }}</h5>
+      <p>Name: {{name}}</p>
 
-    <div id="description">
-      {{description}}
+      <p>Creator: {{link-to user.fullName 'users.show' user }}</p>
+
+      <div id="description">
+        Description: {{description}}
+      </div>
     </div>
 
-    <h4>Tasks</h4>
+    <h4>TASKS</h4>
+
+    {{#if canEdit}}
+      {{ render 'tasks.new' task }}
+    {{/if}}
 
     <ul id="tasks-list">
       {{#each task in tasks}}
@@ -18,8 +26,4 @@
       {{/each}}
     </ul>
   </div>
-
-  {{#if canEdit}}
-    {{ render 'tasks.new' task }}
-  {{/if}}
 </div>
