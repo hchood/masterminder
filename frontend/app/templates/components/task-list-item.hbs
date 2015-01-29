@@ -1,9 +1,13 @@
-{{task.name}}
-
-{{#if task.completedAt}}
-  Completed
+{{#if task.isCompleted}}
+  {{input type="checkbox"
+    checked=task.isCompleted
+    class="toggle"}}
 {{else}}
   {{#if task.project.canEdit}}
-    <button {{action 'saveTask'}}>Complete</button>
+    {{input type="checkbox"
+      checked=task.isCompleted
+      class="toggle"}}
   {{/if}}
 {{/if}}
+
+{{task.name}}
