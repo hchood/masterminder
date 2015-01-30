@@ -6,3 +6,11 @@ This app is a demo for a tutorial on building an app using ember-cli and rails-a
 
 Our evil wizard users want to add projects (world domination schemes) that have associated tasks.  Their underlings can be assigned to complete those tasks.  Tasks and projects can be tagged with various descriptors such as "kinda evil", "pretty depraved", and so forth.
 
+## TODOs
+
+- [ ] Mark tasks complete with checkbox
+- [ ] Add teams.  Allow project creators to add collaborators.
+- [ ] Assign team members to tasks.
+- [ ] Add due dates to tasks
+- [ ] Send email reminders about tasks that are due?
+- [ ] More styling
