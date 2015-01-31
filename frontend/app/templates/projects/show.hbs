@@ -18,7 +18,7 @@
       {{ render 'tasks.new' task }}
     {{/if}}
 
-    <ul id="tasks-list">
+    <ul id="tasks-list" class="item-list">
       {{#each task in tasks}}
         {{#task-list-item task=task handleTaskSaved="saveTask"}}
           {{task.name}}
