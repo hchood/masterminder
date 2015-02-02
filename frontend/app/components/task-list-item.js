@@ -5,9 +5,15 @@ export default Ember.Component.extend({
   classNames: ['task-list-item'],
 
   actions: {
-    saveTask: function() {
+    markTaskComplete: function() {
       var task = this.get('task');
       task.set('completedAt', new Date());
+      task.save();
+    },
+
+    markTaskIncomplete: function() {
+      var task = this.get('task');
+      task.set('completedAt', null);
       task.save();
     }
   }

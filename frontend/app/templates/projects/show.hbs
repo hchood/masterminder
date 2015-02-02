@@ -20,9 +20,7 @@
 
     <ul id="tasks-list" class="item-list">
       {{#each task in tasks}}
-        {{#task-list-item task=task handleTaskSaved="saveTask"}}
-          {{task.name}}
-        {{/task-list-item}}
+        {{task-list-item task=task}}
       {{/each}}
     </ul>
   </div>

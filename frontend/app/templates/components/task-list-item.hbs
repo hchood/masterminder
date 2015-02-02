@@ -1,9 +1,9 @@
-{{task.name}}
-
 {{#if task.completedAt}}
-  Completed
+  <label>{{fa-icon 'check-square-o' size='lg'}}</label>
+  <button class='button small' {{action 'markTaskIncomplete'}}>{{task.name}}</button>
 {{else}}
   {{#if task.project.canEdit}}
-    <button class="button tiny" {{action 'saveTask'}}>Complete</button>
+    <label>{{fa-icon 'fa-square-o' size='lg'}}</label>
+    <button class='button small' {{action 'markTaskComplete'}}>{{task.name}}</button>
   {{/if}}
 {{/if}}
