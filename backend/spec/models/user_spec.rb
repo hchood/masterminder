@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe "validations" do
-    let!(:user) { FactoryGirl.create(:user) }
+    let!(:user) { create(:user) }
 
     it { should validate_presence_of :first_name }
     it { should validate_presence_of :last_name }
@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
 
   describe "before_validation callback" do
     it "sets the access token" do
-      user = FactoryGirl.build(:user)
+      user = build(:user)
       expect(user.access_token).to be_nil
 
       user.save

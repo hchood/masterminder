@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Api::V1::ProjectsController, :type => :controller do
   describe "GET #index" do
     it "returns all the projects, ordered by recency" do
-      older_project = FactoryGirl.create(:project,
+      older_project = create(:project,
         created_at: Time.zone.now - 1.week)
-      old_project = FactoryGirl.create(:project,
+      old_project = create(:project,
         created_at: Time.zone.now - 1.day)
-      oldest_project = FactoryGirl.create(:project,
+      oldest_project = create(:project,
         created_at: Time.zone.now - 1.year)
 
       ordered_projects = [old_project, older_project, oldest_project]
@@ -24,8 +24,8 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
 
   describe "GET #show" do
     it "returns a project" do
-      project = FactoryGirl.create(:project)
-      tasks = FactoryGirl.create_list(:task, 3, project: project)
+      project = create(:project)
+      tasks = create_list(:task, 3, project: project)
 
       serialized_project = ProjectSerializer.new(project, include: [:user, :tasks])
 
@@ -39,12 +39,12 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
   describe "POST #create" do
     context "with valid access token" do
       before :each do
-        @current_user = FactoryGirl.create(:user)
+        @current_user = create(:user)
         request.env["HTTP_AUTHORIZATION"] = "Bearer #{@current_user.access_token}"
       end
 
       it "creates a new project" do
-        project_attrs = FactoryGirl.attributes_for(:project)
+        project_attrs = attributes_for(:project)
 
         prev_count = Project.count
 
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::ProjectsController, :type => :controller do
     end
 
     it "requires authentication" do
-      project_attrs = FactoryGirl.attributes_for(:project)
+      project_attrs = attributes_for(:project)
 
       post :create, project: project_attrs
 

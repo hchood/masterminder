@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Api::V1::TasksController, type: :controller do
   describe "GET #index" do
     it "returns most recent 25 tasks" do
-      oldest_task = FactoryGirl.create(:task, created_at: 1.week.ago)
-      newest_task = FactoryGirl.create(:task)
-      older_task  = FactoryGirl.create(:task, created_at: 2.days.ago)
+      oldest_task = create(:task, created_at: 1.week.ago)
+      newest_task = create(:task)
+      older_task  = create(:task, created_at: 2.days.ago)
 
       ordered_tasks = [newest_task, older_task, oldest_task]
 
@@ -18,9 +18,9 @@ RSpec.describe Api::V1::TasksController, type: :controller do
 
     context "with task ids" do
       it "returns a subset of tasks" do
-        oldest_task = FactoryGirl.create(:task, created_at: 1.week.ago)
-        newest_task = FactoryGirl.create(:task)
-        older_task  = FactoryGirl.create(:task, created_at: 2.days.ago)
+        oldest_task = create(:task, created_at: 1.week.ago)
+        newest_task = create(:task)
+        older_task  = create(:task, created_at: 2.days.ago)
 
         requested_tasks = [newest_task, oldest_task]
 
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
 
   describe "GET #show" do
     it "returns a task's details" do
-      task = FactoryGirl.create(:task)
+      task = create(:task)
 
       serialized_task = TaskSerializer.new(task)
 
@@ -49,13 +49,13 @@ RSpec.describe Api::V1::TasksController, type: :controller do
   describe "POST #create" do
     context "as project creator, with valid access token" do
       before :each do
-        @project = FactoryGirl.create(:project)
+        @project = create(:project)
 
         request.env["HTTP_AUTHORIZATION"] = "Bearer #{@project.user.access_token}"
       end
 
       it "creates a new task" do
-        task_attrs = FactoryGirl.attributes_for(:task)
+        task_attrs = attributes_for(:task)
         task_attrs[:project_id] = @project.id
 
         prev_count = @project.tasks.count
@@ -83,7 +83,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
     end
 
     it "requires authentication" do
-      task_attrs = FactoryGirl.attributes_for(:task)
+      task_attrs = attributes_for(:task)
 
       post :create, task: task_attrs
 
@@ -91,12 +91,12 @@ RSpec.describe Api::V1::TasksController, type: :controller do
     end
 
     it "only allows project creator to create task" do
-      project = FactoryGirl.create(:project)
-      user = FactoryGirl.create(:user)
+      project = create(:project)
+      user = create(:user)
 
       request.env["HTTP_AUTHORIZATION"] = "Bearer #{user.access_token}"
 
-      task_attrs = FactoryGirl.attributes_for(:task)
+      task_attrs = attributes_for(:task)
       task_attrs[:project_id] = project.id
 
       expect{ post :create, task: task_attrs }.to raise_error
@@ -106,7 +106,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
   describe "PUT #update" do
     context "as project creator, with valid access token" do
       it "marks a task completed" do
-        task = FactoryGirl.create(:task)
+        task = create(:task)
         project = task.project
 
         request.env["HTTP_AUTHORIZATION"] = "Bearer #{project.user.access_token}"
@@ -124,7 +124,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
     end
 
     it "requires authentication" do
-      task = FactoryGirl.create(:task)
+      task = create(:task)
 
       put :update, id: task.id, task: { completed_at: Time.now }
 
@@ -132,8 +132,8 @@ RSpec.describe Api::V1::TasksController, type: :controller do
     end
 
     it "only allows project creator to mark task complete" do
-      task = FactoryGirl.create(:task)
-      user = FactoryGirl.create(:user)
+      task = create(:task)
+      user = create(:user)
 
       request.env["HTTP_AUTHORIZATION"] = "Bearer #{user.access_token}"
 

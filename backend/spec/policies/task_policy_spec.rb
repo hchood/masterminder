@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe TaskPolicy do
   subject { described_class }
-  let(:task) { FactoryGirl.build(:task) }
+  let(:task) { build(:task) }
 
   permissions :create? do
     it "is not permitted as a visitor" do

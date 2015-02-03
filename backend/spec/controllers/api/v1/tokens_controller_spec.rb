@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::TokensController, type: :controller do
   describe "POST #create" do
     it "returns user info when provided valid credentials" do
-      user = FactoryGirl.create(:user)
+      user = create(:user)
 
       credentials = { username: user.email,
         password: user.password }

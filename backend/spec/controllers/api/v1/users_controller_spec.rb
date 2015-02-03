@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::UsersController, type: :controller do
   describe "POST #create" do
     it "creates a new user" do
-      user_attrs = FactoryGirl.attributes_for(:user)
+      user_attrs = attributes_for(:user)
 
       prev_count = User.count
 
@@ -34,8 +34,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe "GET #show" do
     it "returns a user" do
-      user = FactoryGirl.create(:user)
-      projects = FactoryGirl.create_list(:project, 3,
+      user = create(:user)
+      projects = create_list(:project, 3,
         user: user)
 
       serialized_user = UserSerializer.new(user, include: [:projects])
@@ -49,11 +49,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe "GET #index" do
     it "returns all the users, ordered by last name, then first name" do
-      last_user = FactoryGirl.create(:user,
+      last_user = create(:user,
         first_name: "Zoe", last_name: "Smith")
-      first_user = FactoryGirl.create(:user,
+      first_user = create(:user,
         first_name: "Alex", last_name: "Aaronson")
-      middle_user = FactoryGirl.create(:user,
+      middle_user = create(:user,
         first_name: "Amanda", last_name: "Smith")
 
       ordered_users = [first_user, middle_user, last_user]
