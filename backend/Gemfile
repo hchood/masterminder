@@ -7,6 +7,7 @@ gem 'pg'
 gem 'active_model_serializers', '0.8.3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'pundit'
+gem 'rack-rewrite'
 
 group :test do
   gem 'shoulda-matchers'

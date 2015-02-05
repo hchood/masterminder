@@ -78,6 +78,7 @@ GEM
       activesupport (>= 3.0.0)
     rack (1.6.0)
     rack-cors (0.2.9)
+    rack-rewrite (1.5.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -155,6 +156,7 @@ DEPENDENCIES
   pry-rails
   pundit
   rack-cors
+  rack-rewrite
   rails (= 4.2.0)
   rails-api
   rspec-rails (~> 3.0.0)
