@@ -10,8 +10,7 @@
 * Create the ember app inside your app directory.  Rename it `frontend/`.
 
   ```no-highlight
-  ember-cli new masterminder --skip-git
-  mv masterminder frontend
+  ember new masterminder --skip-git --dir=frontend
   ```
 
 * Create the rails-api app using Postgres. Rename it `backend/`.
@@ -35,7 +34,7 @@
   ```ruby
   # Gemfile
 
-  gem 'active_model_serializers', '0.8.3'
+  gem 'active_model_serializers', '0.8.4'
 
   group :test do
     gem 'shoulda-matchers', require: false
@@ -125,10 +124,10 @@ Acceptance Criteria:
   var application;
 
   module('Acceptance: Projects', {
-    setup: function() {
+    setup() {
       application = startApp();
     },
-    teardown: function() {
+    teardown() {
       Ember.run(application, 'destroy');
     }
   });
@@ -136,7 +135,7 @@ Acceptance Criteria:
   test('visiting /projects', function() {
     visit('/projects');
 
-    andThen(function() {
+    andThen(() => {
       equal(currentPath(), 'projects');
     });
   });
@@ -154,7 +153,7 @@ Acceptance Criteria:
     ```js
     Router.map(function() {
       // add this line
-      this.resource('projects');
+      this.route('projects');
     });
     ```
 
@@ -181,7 +180,7 @@ Acceptance Criteria:
   var application, server;
 
   module('Acceptance: Projects', {
-    setup: function() {
+    setup() {
       application = startApp();
 
       // create some fake projects for pretender to serve up
@@ -198,7 +197,7 @@ Acceptance Criteria:
         });
       });
     },
-    teardown: function() {
+    teardown() {
       Ember.run(application, 'destroy');
     }
   });
@@ -206,11 +205,11 @@ Acceptance Criteria:
   // add some tests!
 
   test('Should allow navigation to the projects page from the landing page', function() {
-    visit('/').then(function() {
+    visit('/').then(() => {
       click('a:contains("Projects")');
     });
 
-    andThen(function() {
+    andThen(=> () {
       equal(find('h3').text(), 'All World Domination Schemes');
     });
   });
@@ -218,7 +217,7 @@ Acceptance Criteria:
   test('visiting /projects', function() {
     visit('/projects');
 
-    andThen(function() {
+    andThen(() => {
       equal(currentPath(), 'projects.index');
 
       equal(find('h3:contains("All World Domination Schemes")').length, 1);
@@ -233,7 +232,7 @@ Acceptance Criteria:
 
   ```no-highlight
   cd frontend
-  ember install:addon ember-cli-pretender
+  ember install ember-cli-pretender
   ```
 
   If we start our server and visit [http://localhost:4200/tests](http://localhost:4200/tests), we should see our failing tests.
@@ -268,8 +267,8 @@ Acceptance Criteria:
     // frontend/app/templates/projects/index.hbs
 
     <ul>
-      {{#each project in model}}
-        <li>{{link-to project.name 'projects.show' project}}</li>
+      {{#each model as |project|}}
+        <li>{{link-to project.name 'projects.show' project.id}}</li>
       {{/each}}
     </ul>
     ```
@@ -280,8 +279,8 @@ Acceptance Criteria:
     // frontend/app/router.js
 
     Router.map(function() {
-      this.resource('projects', function() {
-        this.route('show', {path: ':id'});
+      this.route('projects', function() {
+        this.route('show', { path: ':id' });
       });
     });
     ```
@@ -298,8 +297,8 @@ Acceptance Criteria:
     import Ember from 'ember';
 
     export default Ember.Route.extend({
-      model: function() {
-        return this.store.find('project');
+      model() {
+        return this.store.findAll('project');
       },
     });
     ```
