@@ -34,7 +34,7 @@
   ```ruby
   # Gemfile
 
-  gem 'active_model_serializers', '0.8.4'
+  gem 'active_model_serializers', '0.8.3'
 
   group :test do
     gem 'shoulda-matchers', require: false
